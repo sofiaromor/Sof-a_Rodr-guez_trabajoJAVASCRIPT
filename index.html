@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pentaoxido</title>
+    <link rel="icon" href="/images/iconopentaoxido.png" type="image/png">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Menú -->
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="/index.html"><img src="/images/iconopentaoxido.png" alt="Logo"></a>
+            </div>
+            <ul>
+                <li><a href="/index.html" class="active">Menú principal</a></li>
+                <li><a href="/HTML/contacto.html">¿Dónde encontrarnos?</a></li>
+                <li><a href="/HTML/presupuesto.html">Pídenos presupuesto aquí</a></li>
+                <li><a href="/HTML/galeria.html">Galeria</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Sección 1: Hero -->
+    <section id="hero">
+        <div class="container">
+            <div class="image">
+                <img src="images/fotgrafíaportada.JPG" alt="Fotografía principal">
+            </div>
+            <div class="text">
+                <h1>Tu vida, enmarcada en imágenes inolvidables</h1>
+                <p>En cada sesión fotográfica, buscamos capturar la esencia de tus momentos más preciados...</p>
+                <a href="/HTML/contacto.html" class="btn">Contáctanos</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección 2: Servicios -->
+    <section id="services">
+        <h2>Díselo con una foto</h2>
+        <div class="service-container">
+            <!-- servicios... -->
+            <div class="service"><img src="images/boda.jpg" alt="Bodas"><h3>Bodas</h3><p>Capturamos la emoción...</p></div>
+            <div class="service"><img src="images/retrato.jpg" alt="Retratos"><h3>Retratos</h3><p>Trabajamos contigo...</p></div>
+            <div class="service"><img src="images/producto.jpg" alt="Productos"><h3>Productos</h3><p>Realzamos tus productos...</p></div>
+            <div class="service"><img src="images/evento.jpg" alt="Eventos"><h3>Eventos</h3><p>Capturamos la esencia...</p></div>
+            <div class="service"><img src="images/estudiofotos.jpg" alt="Estudio"><h3>Estudio</h3><p>Diseñado para hacerte sentir como una estrella...</p></div>
+        </div>
+    </section>
+
+    <!-- Sección 3: Sobre mí -->
+    <section id="about">
+        <h2>Uxía Castelo</h2>
+        <div class="about-container">
+            <div class="about-image">
+                <img src="images/uxia.JPG" alt="Uxía Castelo">
+            </div>
+            <div class="about-text">
+                <p>Como fotógrafa apasionada, mi misión es capturar la verdadera esencia de las personas...</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="news">
+        <h2>Últimas Noticias</h2>
+        <div class="news-carousel" id="news-carousel">
+            <!-- Noticias dinámicas -->
+        </div>
+        <div class="carousel-controls">
+            <button onclick="prevNews()">Anterior</button>
+            <button onclick="nextNews()">Siguiente</button>
+        </div>
+    </section>
+
+    <!-- Pie de página -->
+    <footer>
+        <div class="footer-container">
+            <div class="logos">
+                <a href="https://www.facebook.com/pentaoxido/?locale=es_LA" target="_blank"><img src="/images/redes_sociales/LogoFacebook.png" alt="Facebook"></a>
+                <a href="https://twitter.com/pentaoxido" target="_blank"><img src="images/redes_sociales/LogoTwitter.png" alt="Twitter"></a>
+                <a href="https://www.instagram.com/pentaoxido/?hl=es" target="_blank"><img src="images/redes_sociales/LogoInstagram.png" alt="Instagram"></a>
+            </div>
+            <div class="company-info">
+                <p>Dirección: Calle Real 123,15175, A Coruña, España</p>
+                <p>Email: contactopentaoxido@empresa.com</p>
+            </div>
+            <div class="legal-info">
+                <a href="/HTML/aviso-legal.html" target="_blank">Aviso Legal</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script para cargar noticias -->
+    <script>
+        let currentNews = 0;
+        let newsItems = [];
+        let autoSlide;
+    
+        function renderNews(index) {
+            const container = document.getElementById('news-carousel');
+            container.innerHTML = '';
+            if (newsItems.length > 0) {
+                const noticia = newsItems[index];
+                const div = document.createElement('div');
+                div.className = 'news-slide active';
+                div.innerHTML = `
+                    <img src="${noticia.imagen || 'images/noticia-default.jpg'}" alt="Miniatura noticia">
+                    <div class="text">
+                        <div class="news-title" onclick="showNewsModal('${noticia.titulo}', '${noticia.descripcion.replace(/'/g, "\\'")}')">${noticia.titulo}</div>
+                        <p>${noticia.descripcion}</p>
+                        <small><em>${new Date(noticia.fecha).toLocaleDateString()}</em></small>
+                    </div>
+                `;
+                container.appendChild(div);
+            }
+        }
+
+    
+        function prevNews() {
+            currentNews = (currentNews - 1 + newsItems.length) % newsItems.length;
+            renderNews(currentNews);
+            resetAutoSlide();
+        }
+    
+        function nextNews() {
+            currentNews = (currentNews + 1) % newsItems.length;
+            renderNews(currentNews);
+            resetAutoSlide();
+        }
+    
+        function autoAdvance() {
+            nextNews();
+        }
+    
+        function resetAutoSlide() {
+            clearInterval(autoSlide);
+            autoSlide = setInterval(autoAdvance, 5000); // cada 5 segundos
+        }
+    
+        function showNewsModal(titulo, contenido) {
+            alert(`${titulo}\n\n${contenido}`);
+        }
+    
+        document.addEventListener("DOMContentLoaded", () => {
+            fetch("noticias.json")
+                .then(response => response.json())
+                .then(data => {
+                    newsItems = data;
+                    renderNews(currentNews);
+                    autoSlide = setInterval(autoAdvance, 5000);
+                })
+                .catch(err => console.error("Error cargando noticias:", err));
+        });
+    </script>
+</body>
+</html>    

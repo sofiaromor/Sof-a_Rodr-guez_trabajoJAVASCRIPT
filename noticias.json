@@ -1,0 +1,38 @@
+[
+    {
+    "titulo": "Nueva exposición fotográfica",
+    "descripcion": "Uxía Castelo presentará una colección inédita de retratos emocionales en el centro cultural de A Coruña. Una experiencia visual íntima.",
+    "fecha": "2025-06-20",
+    "imagen": "images/noticias/emociones.JPG"
+    },
+    {
+    "titulo": "Taller gratuito de fotografía",
+    "descripcion": "Inscríbete en nuestro taller gratuito donde aprenderás técnicas profesionales de composición y manejo de luz natural.",
+    "fecha": "2025-06-15",
+    "imagen": "/images/noticias/luz.JPG"
+    },
+    {
+    "titulo": "Premio nacional a Uxía Castelo",
+    "descripcion": "Nuestra fotógrafa ha sido galardonada con el Premio Nacional de Retrato Contemporáneo 2025. ¡Orgullo local!",
+    "fecha": "2025-06-10",
+    "imagen": "/images/noticias/premio.JPG"
+    },
+    {
+    "titulo": "Lanzamiento de nuevo portafolio",
+    "descripcion": "Descubre las nuevas colecciones de sesiones en exteriores y temáticas conceptuales en nuestra sección 'Portafolio'.",
+    "fecha": "2025-06-01",
+    "imagen": "/images/noticias/exterior.JPG"
+    },
+    {
+    "titulo": "Sesiones de verano abiertas",
+    "descripcion": "Reserva ya tu sesión fotográfica al aire libre. Ideal para familias, parejas o retratos personales con luz dorada natural.",
+    "fecha": "2025-05-25",
+    "imagen": "/images/noticias/sesiones.JPG"
+    },
+    {
+    "titulo": "Nuevo equipo de edición",
+    "descripcion": "Implementamos tecnología avanzada en postproducción para ofrecerte imágenes con mayor detalle, nitidez y color.",
+    "fecha": "2025-05-15",
+    "imagen": "/images/noticias/tecno.JPG"
+    }
+]

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Presupuesto</title>
+        <link rel="stylesheet" href="/css/styles-presupuesto.css" />
+    </head>
+    <body>
+        <header>
+        <nav>
+            <div class="logo">
+            <a href="/index.html">
+                <img src="/images/iconopentaoxido.png" alt="Logo" />
+            </a>
+            </div>
+            <ul>
+            <li><a href="/index.html">Menú principal</a></li>
+            <li><a href="/HTML/contacto.html">¿Dónde encontrarnos?</a></li>
+            <li><a href="/HTML/presupuesto.html" class="active">Pídenos presupuesto aquí</a></li>
+            <li><a href="/HTML/galeria.html">Portafolio</a></li>
+            </ul>
+        </nav>
+        </header>
+
+        <main>
+        <h1>Pide tu presupuesto aquí:</h1>
+
+        <form id="form-presupuesto" novalidate>
+            <!-- Datos de contacto -->
+            <fieldset>
+            <legend>Datos de contacto</legend>
+
+            <label for="nombre">Nombre *</label>
+            <input type="text" id="nombre" name="nombre" maxlength="15" required />
+            <div class="error" id="error-nombre"></div>
+
+            <label for="apellidos">Apellidos *</label>
+            <input type="text" id="apellidos" name="apellidos" maxlength="40" required />
+            <div class="error" id="error-apellidos"></div>
+
+            <label for="telefono">Teléfono de contacto *</label>
+            <input type="tel" id="telefono" name="telefono" maxlength="9" required />
+            <div class="error" id="error-telefono"></div>
+
+            <label for="email">Correo electrónico *</label>
+            <input type="email" id="email" name="email" required />
+            <div class="error" id="error-email"></div>
+            </fieldset>
+
+            <!-- Presupuesto -->
+            <fieldset>
+                <legend>Sesión de fotografía</legend>
+            
+                <label for="producto">Tipo de sesión *</label>
+                <select id="producto" name="producto" required>
+                <option value="" disabled selected>-- Selecciona una sesión --</option>
+                <option value="150">Sesión Retrato Individual - 150€</option>
+                <option value="300">Sesión Familiar - 300€</option>
+                <option value="500">Sesión Boda - 500€</option>
+                <option value="200">Sesión Evento Corporativo - 200€</option>
+                <option value="200">Sesión Newborn (recién nacido)  - 300€</option>
+                </select>
+                <div class="error" id="error-producto"></div>
+            
+                <label for="plazo">Plazo (meses) *</label>
+                <input type="number" id="plazo" name="plazo" min="1" max="12" value="1" required />
+                <div class="error" id="error-plazo"></div>
+            
+                <fieldset class="checkbox-group" style="margin-top: 15px;">
+                <legend>Extras para sesión de fotografía</legend>
+                <label><input type="checkbox" name="extras" value="50" /> Álbum fotográfico (+150€)</label>
+                <label><input type="checkbox" name="extras" value="100" /> Edición avanzada de fotos (+100€)</label>
+                <label><input type="checkbox" name="extras" value="75" /> Sesión extra en localización (+175€)</label>
+                <label><input type="checkbox" name="extras" value="30" /> Fotos impresas (+30€)</label>
+                <label><input type="checkbox" name="extras" value="40" /> Entrega rápida (+40€)</label>
+                </fieldset>
+            
+                <label>Presupuesto final:</label>
+                <div id="presupuesto-final">0 €</div>
+            </fieldset>
+
+            <div class="checkbox-container">
+            <input type="checkbox" id="condiciones" required />
+            <label for="condiciones">Acepto las condiciones de privacidad *</label>
+            </div>
+            <div class="error" id="error-condiciones"></div>
+
+            <button type="submit" id="btn-enviar" disabled>Enviar presupuesto</button>
+            <button type="reset" id="btn-reset" style="background:#555; margin-left: 10px;">Resetear formulario</button>
+        </form>
+        </main>
+
+        <footer>
+        <div class="footer-container" style="text-align:center; margin-top:40px; font-size: 0.9rem; color:#666;">
+            <p>Dirección: Calle Real 123,15175, A Coruña, España</p>
+            <p>Email: contactopentaoxido@empresa.com</p>
+            <p><a href="/HTML/aviso-legal.html" target="_blank" style="color:#8B0000; text-decoration:none;">Aviso Legal</a></p>
+        </div>
+        </footer>
+
+        <script>
+        const form = document.getElementById("form-presupuesto");
+        const nombre = document.getElementById("nombre");
+        const apellidos = document.getElementById("apellidos");
+        const telefono = document.getElementById("telefono");
+        const email = document.getElementById("email");
+        const producto = document.getElementById("producto");
+        const plazo = document.getElementById("plazo");
+        const extras = document.querySelectorAll("input[name='extras']");
+        const condiciones = document.getElementById("condiciones");
+        const presupuestoFinal = document.getElementById("presupuesto-final");
+        const btnEnviar = document.getElementById("btn-enviar");
+        const btnReset = document.getElementById("btn-reset");
+
+        // Mensajes de error
+        const errorNombre = document.getElementById("error-nombre");
+        const errorApellidos = document.getElementById("error-apellidos");
+        const errorTelefono = document.getElementById("error-telefono");
+        const errorEmail = document.getElementById("error-email");
+        const errorProducto = document.getElementById("error-producto");
+        const errorPlazo = document.getElementById("error-plazo");
+        const errorCondiciones = document.getElementById("error-condiciones");
+
+        // Validaciones
+        function validarNombre() {
+            const val = nombre.value.trim();
+            if (!val) {
+            errorNombre.textContent = "El nombre es obligatorio.";
+            return false;
+            }
+            if (!/^[A-Za-zÀ-ÿ\s]+$/.test(val)) {
+            errorNombre.textContent = "Sólo letras y espacios permitidos.";
+            return false;
+            }
+            if (val.length > 15) {
+            errorNombre.textContent = "Máximo 15 caracteres.";
+            return false;
+            }
+            errorNombre.textContent = "";
+            return true;
+        }
+
+        function validarApellidos() {
+            const val = apellidos.value.trim();
+            if (!val) {
+            errorApellidos.textContent = "Los apellidos son obligatorios.";
+            return false;
+            }
+            if (!/^[A-Za-zÀ-ÿ\s]+$/.test(val)) {
+            errorApellidos.textContent = "Sólo letras y espacios permitidos.";
+            return false;
+            }
+            if (val.length > 40) {
+            errorApellidos.textContent = "Máximo 40 caracteres.";
+            return false;
+            }
+            errorApellidos.textContent = "";
+            return true;
+        }
+
+        function validarTelefono() {
+            const val = telefono.value.trim();
+            if (!val) {
+            errorTelefono.textContent = "El teléfono es obligatorio.";
+            return false;
+            }
+            if (!/^\d{9}$/.test(val)) {
+            errorTelefono.textContent = "Debe ser un número de 9 dígitos.";
+            return false;
+            }
+            errorTelefono.textContent = "";
+            return true;
+        }
+
+        function validarEmail() {
+            const val = email.value.trim();
+            if (!val) {
+            errorEmail.textContent = "El correo es obligatorio.";
+            return false;
+            }
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(val)) {
+            errorEmail.textContent = "Correo no válido.";
+            return false;
+            }
+            errorEmail.textContent = "";
+            return true;
+        }
+
+        function validarProducto() {
+            if (!producto.value) {
+            errorProducto.textContent = "Selecciona un producto.";
+            return false;
+            }
+            errorProducto.textContent = "";
+            return true;
+        }
+
+        function validarPlazo() {
+            const val = parseInt(plazo.value, 10);
+            if (!val || val < 1 || val > 12) {
+            errorPlazo.textContent = "El plazo debe ser entre 1 y 12 meses.";
+            return false;
+            }
+            errorPlazo.textContent = "";
+            return true;
+        }
+
+        function validarCondiciones() {
+            if (!condiciones.checked) {
+            errorCondiciones.textContent = "Debes aceptar las condiciones.";
+            return false;
+            }
+            errorCondiciones.textContent = "";
+            return true;
+        }
+
+        // Calcular presupuesto
+        function calcularPresupuesto() {
+            if (!validarProducto() || !validarPlazo()) {
+            presupuestoFinal.textContent = "0 €";
+            return;
+            }
+
+            const base = Number(producto.value);
+            const plazoMeses = Number(plazo.value);
+
+            let extrasSum = 0;
+            extras.forEach(chk => {
+            if (chk.checked) extrasSum += Number(chk.value);
+            });
+
+            let subtotal = base + extrasSum;
+
+            let descuento = 0;
+            if (plazoMeses > 6) {
+            descuento = subtotal * 0.1;
+            }
+
+            const total = subtotal - descuento;
+            presupuestoFinal.textContent = total.toFixed(2) + " €";
+        }
+
+        function toggleEnviar() {
+            const valido = validarNombre() && validarApellidos() && validarTelefono() && validarEmail() &&
+                        validarProducto() && validarPlazo() && validarCondiciones();
+            btnEnviar.disabled = !valido;
+        }
+
+        nombre.addEventListener("input", () => { validarNombre(); toggleEnviar(); });
+        apellidos.addEventListener("input", () => { validarApellidos(); toggleEnviar(); });
+        telefono.addEventListener("input", () => { validarTelefono(); toggleEnviar(); });
+        email.addEventListener("input", () => { validarEmail(); toggleEnviar(); });
+        producto.addEventListener("change", () => { validarProducto(); calcularPresupuesto(); toggleEnviar(); });
+        plazo.addEventListener("input", () => { validarPlazo(); calcularPresupuesto(); toggleEnviar(); });
+        extras.forEach(chk => chk.addEventListener("change", calcularPresupuesto));
+        condiciones.addEventListener("change", () => { validarCondiciones(); toggleEnviar(); });
+
+        window.addEventListener("load", () => {
+            calcularPresupuesto();
+            toggleEnviar();
+        });
+
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+
+            const nombreOk = validarNombre();
+            const apellidosOk = validarApellidos();
+            const telefonoOk = validarTelefono();
+            const emailOk = validarEmail();
+            const productoOk = validarProducto();
+            const plazoOk = validarPlazo();
+            const condicionesOk = validarCondiciones();
+
+            if (nombreOk && apellidosOk && telefonoOk && emailOk && productoOk && plazoOk && condicionesOk) {
+            alert("Formulario enviado correctamente.\nPresupuesto final: " + presupuestoFinal.textContent);
+            form.reset();
+            presupuestoFinal.textContent = "0 €";
+            btnEnviar.disabled = true;
+            } else {
+            alert("Por favor, corrige los errores antes de enviar.");
+            }
+        });
+
+        btnReset.addEventListener("click", () => {
+            setTimeout(() => {
+            presupuestoFinal.textContent = "0 €";
+            errorNombre.textContent = "";
+            errorApellidos.textContent = "";
+            errorTelefono.textContent = "";
+            errorEmail.textContent = "";
+            errorProducto.textContent = "";
+            errorPlazo.textContent = "";
+            errorCondiciones.textContent = "";
+            btnEnviar.disabled = true;
+            }, 0);
+        });
+        </script>
+    </body>
+</html>

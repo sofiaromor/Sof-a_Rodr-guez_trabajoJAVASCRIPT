@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Contacto</title>
+        <link rel="stylesheet" href="/css/styles-contacto.css">
+        <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+    </head>
+    <body>
+        <header>
+        <nav>
+            <div class="logo">
+            <a href="/index.html">
+                <img src="/images/iconopentaoxido.png" alt="Logo" width="100" height="100">
+            </a>
+            </div>
+            <ul>
+            <li><a href="/index.html">Menú principal</a></li>
+            <li><a href="/HTML/galeria.html">Portafolio</a></li>
+            <li><a href="/HTML/presupuesto.html">Pídenos presupuesto</a></li>
+            <li><a href="/HTML/contacto.html" class="active">¿Dónde encontrarnos?</a></li>
+            </ul>
+        </nav>
+        </header>
+
+        <main class="contact-container">
+        <h1>Contacto</h1>
+        <div class="contact-details">
+            <div class="contact-info">
+            <h2>Datos de la Empresa</h2>
+            <p><strong>Nombre:</strong> Pentaóxido Corp</p>
+            <p><strong>Teléfono:</strong> +34 123 456 789</p>
+            <p><strong>Email:</strong> <a href="mailto:contactopentaoxido@empresa.com">contactopentaoxido@empresa.com</a></p>
+            <p><strong>Dirección:</strong> Calle Real 123, 15175, A Coruña, España</p>
+            <p><strong>Horario:</strong> Lunes a Viernes, 9:00 AM - 6:00 PM</p>
+            </div>
+
+            <div class="map-container">
+            <div id="map" class="map"></div>
+            <button class="route-button" onclick="calculateRoute()">Calcular ruta en coche</button>
+            <div id="route-info" class="route-info"></div>
+            </div>
+        </div>
+        </main>
+
+        <footer>
+        <div class="footer-container">
+            <div class="logos">
+            <a href="https://www.facebook.com/pentaoxido" target="_blank"><img src="/images/redes_sociales/LogoFacebook.png" alt="Facebook"></a>
+            <a href="https://twitter.com/pentaoxido" target="_blank"><img src="/images/redes_sociales/LogoTwitter.png" alt="Twitter"></a>
+            <a href="https://www.instagram.com/pentaoxido" target="_blank"><img src="/images/redes_sociales/LogoInstagram.png" alt="Instagram"></a>
+            </div>
+            <div class="company-info">
+            <p>Dirección: Calle Real 123,15175, A Coruña, España</p>
+            <p>Email: contactopentaoxido@empresa.com</p>
+            </div>
+            <div class="legal-info">
+            <a href="/HTML/aviso-legal.html" target="_blank">Aviso Legal</a>
+            </div>
+        </div>
+        </footer>
+
+        <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+        <script>
+        const empresaCoords = [43.3623, -8.4115];
+        let map = L.map('map').setView(empresaCoords, 13);
+        let routeLayer;
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 18
+        }).addTo(map);
+
+        L.marker(empresaCoords).addTo(map).bindPopup("Pentaóxido Corp").openPopup();
+
+        function calculateRoute() {
+            if (!navigator.geolocation) {
+            alert("Tu navegador no admite geolocalización.");
+            return;
+            }
+
+            navigator.geolocation.getCurrentPosition(pos => {
+            const userLat = pos.coords.latitude;
+            const userLng = pos.coords.longitude;
+
+            const url = `https://router.project-osrm.org/route/v1/driving/${userLng},${userLat};${empresaCoords[1]},${empresaCoords[0]}?overview=full&geometries=geojson`;
+
+            fetch(url)
+                .then(res => res.json())
+                .then(data => {
+                const route = data.routes[0];
+                const coords = route.geometry.coordinates.map(([lng, lat]) => [lat, lng]);
+
+                if (routeLayer) {
+                    map.removeLayer(routeLayer);
+                }
+
+                routeLayer = L.polyline(coords, {color: 'red'}).addTo(map);
+                map.fitBounds(routeLayer.getBounds());
+
+                const distanceKm = (route.distance / 1000).toFixed(2);
+                const durationMin = Math.ceil(route.duration / 60);
+
+                document.getElementById("route-info").innerHTML = `
+                    <p><strong>Distancia:</strong> ${distanceKm} km</p>
+                    <p><strong>Duración estimada:</strong> ${durationMin} minutos</p>
+                `;
+                })
+                .catch(() => {
+                alert("No se pudo calcular la ruta.");
+                });
+
+            }, () => {
+            alert("No se pudo obtener tu ubicación.");
+            });
+        }
+        </script>
+
+    </body>
+</html>

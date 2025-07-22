@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Galería Dinámica</title>
+    <link rel="stylesheet" href="/css/styles-galeria.css" />
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="/index.html">
+                    <img src="/images/iconopentaoxido.png" alt="Logo" />
+                </a>
+            </div>
+            <ul>
+                <li><a href="/index.html">Menú principal</a></li>
+                <li><a href="/HTML/contacto.html">¿Dónde encontrarnos?</a></li>
+                <li><a href="/HTML/presupuesto.html">Pídenos presupuesto aquí</a></li>
+                <li><a href="/HTML/galeria.html" class="active">Galería</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <h2>Galería del Portafolio</h2>
+    <section class="masonry" id="galeria"></section>
+
+    <!-- Modal -->
+<div
+id="modal"
+style="
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+"
+>
+<button
+    id="prev-btn"
+    style="
+        position: absolute;
+        left: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: rgba(255, 255, 255, 0.5);
+        border: none;
+        font-size: 2rem;
+        cursor: pointer;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        user-select: none;
+    "
+    aria-label="Imagen anterior"
+>
+    &#8249;
+</button>
+<img id= ampliada" style="max-width: 90%; max-height: 90%; border-radius: 10px;"/>
+<button
+    id="next-btn"
+    style="
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: rgba(255, 255, 255, 0.5);
+        border: none;
+        font-size: 2rem;
+        cursor: pointer;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        user-select: none;
+"
+    aria-label="Imagen siguiente"
+>
+    &#8250;
+</button>
+</div>
+
+    <footer>
+        <div class="footer-container">
+            <div class="logos">
+                <a href="https://www.facebook.com/pentaoxido/" target="_blank"
+                    ><img src="/images/redes_sociales/LogoFacebook.png" alt="Facebook"
+                /></a>
+                <a href="https://twitter.com/pentaoxido" target="_blank"
+                    ><img src="/images/redes_sociales/LogoTwitter.png" alt="Twitter"
+                /></a>
+                <a href="https://www.instagram.com/pentaoxido/" target="_blank"
+                    ><img
+                        src="/images/redes_sociales/LogoInstagram.png"
+                        alt="Instagram"
+                /></a>
+            </div>
+            <div class="company-info">
+                <p>Dirección: Calle Real 123, 15175, A Coruña, España</p>
+                <p>Email: contactopentaoxido@empresa.com</p>
+            </div>
+            <div class="legal-info">
+                <a href="/HTML/aviso-legal.html" target="_blank">Aviso Legal</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const imagenes = [
+        "portafolio1.jpg",
+        "portafolio2.jpg",
+        "portafolio3.jpg",
+        "portafolio4.jpg",
+        "portafolio5.jpg",
+        "portafolio6.jpg",
+        "portafolio7.jpg",
+        "portafolio8.jpg",
+        "portafolio9.jpg",
+        "portafolio10.jpg",
+        "portafolio11.jpg",
+        "portafolio13.jpg",
+        "portafolio14.jpg",
+    ];
+        const galeria = document.getElementById("galeria");
+        const modal = document.getElementById("modal");
+        const modalImg = document.getElementById("modal-img");
+        const prevBtn = document.getElementById("prev-btn");
+        const nextBtn = document.getElementById("next-btn");
+    
+        let currentIndex = 0;
+    
+        function mostrarImagen(index) {
+            if (index < 0) index = imagenes.length - 1;
+            else if (index >= imagenes.length) index = 0;
+            currentIndex = index;
+            modalImg.src = "/images/Portafolio/" + imagenes[currentIndex];
+        }
+    
+        imagenes.forEach((nombre, index) => {
+            const item = document.createElement("div");
+            item.className = "masonry-item";
+        
+            const img = document.createElement("img");
+            img.src = "/images/Portafolio/" + nombre;
+            img.alt = nombre;
+            img.loading = "lazy";
+        
+            img.onclick = () => {
+            mostrarImagen(index);
+            modal.style.display = "flex";
+        };
+        
+        item.appendChild(img);
+        galeria.appendChild(item);
+        
+        setTimeout(() => {
+            item.classList.add("visible");
+          }, 150 * index);
+        });
+        
+        prevBtn.onclick = (e) => {
+            e.stopPropagation(); // Evita que se cierre el modal al hacer click aquí
+            mostrarImagen(currentIndex - 1);
+        };
+    
+        nextBtn.onclick = (e) => {
+            e.stopPropagation();
+            mostrarImagen(currentIndex + 1);
+        };
+        
+        modal.onclick = (e) => {
+          // Cierra solo si haces click en el fondo (no en la imagen ni botones)
+        if (
+            e.target.id === "modal" ||
+            e.target.id === "modal-img"
+        ) {
+            modal.style.display = "none";
+        }
+        };
+
+        // Opcional: cerrar con tecla Escape
+        document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+            modal.style.display = "none";
+        }
+        });
+    </script>
+</body>
+</html>

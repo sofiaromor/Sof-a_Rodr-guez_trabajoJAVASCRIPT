@@ -1,0 +1,162 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Open+Sans:wght@400;600&display=swap');
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    max-width: 650px;
+    margin: 40px auto;
+    background: #f9f9f9;
+    padding: 0 15px;
+    color: #333;
+}
+
+header nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f8f8f8;
+    padding: 10px 20px;
+    margin-bottom: 40px;
+}
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: white; 
+}
+
+.logo img {
+    width: 100px;
+    height: 100px;
+}
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    margin: 0;
+    padding: 0;
+}
+nav ul li a {
+    text-decoration: none;
+    font-weight: bold;
+    color: #333;
+}
+nav ul li a.active {
+    color: #8B0000;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #8B0000;
+}
+
+form {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(139,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+fieldset {
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 8px;
+}
+legend {
+    font-weight: 700;
+    color: #8B0000;
+    padding: 0 10px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="number"],
+select,
+textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+.checkbox-group label {
+    font-weight: normal;
+}
+
+#presupuesto-final {
+    background: #eee;
+    padding: 15px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: #8B0000;
+    text-align: center;
+}
+
+.error {
+    color: #cc0000;
+    font-size: 0.9rem;
+    margin-top: 4px;
+    height: 16px;
+}
+
+.checkbox-container {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+}
+.checkbox-container label {
+    margin-left: 8px;
+    font-weight: 600;
+}
+
+button {
+    padding: 12px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    background-color: #8B0000;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+button:disabled {
+    background-color: #aaa;
+    cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
+    background-color: #a22a2a;
+}
+
+footer {
+    margin-top: 40px;
+    padding: 15px;
+    font-size: 0.9rem;
+    color: #666;
+    text-align: center;
+}
