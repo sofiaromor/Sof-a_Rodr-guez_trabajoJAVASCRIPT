@@ -108,6 +108,47 @@ nav ul li a.active {
     box-shadow: 0 8px 20px rgba(139, 0, 0, 0.4);
 }
 
+/* Estilos para el modal */
+.modal {
+display: none;
+position: fixed;
+inset: 0;
+background-color: rgba(0, 0, 0, 0.8);
+justify-content: center;
+align-items: center;
+z-index: 9999;
+}
+
+/* Imagen ampliada */
+.modal-img {
+max-width: 90%;
+max-height: 90%;
+border-radius: 10px;
+}
+
+/* Botones de navegación */
+.nav-btn {
+position: absolute;
+top: 50%;
+transform: translateY(-50%);
+background-color: rgba(255, 255, 255, 0.5);
+border: none;
+font-size: 2rem;
+cursor: pointer;
+border-radius: 50%;
+width: 50px;
+height: 50px;
+user-select: none;
+}
+
+#prev-btn {
+left: 20px;
+}
+
+#next-btn {
+right: 20px;
+}
+
 /* Ajuste responsive para dispositivos más pequeños */
 @media (max-width: 1200px) {
     .masonry {

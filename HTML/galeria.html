@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Galería Dinámica</title>
-    <link rel="stylesheet" href="/css/styles-galeria.css" />
+    <link rel="stylesheet" href="/css/styles-galeria.css">
 </head>
 <body>
     <header>
         <nav>
             <div class="logo">
                 <a href="/index.html">
-                    <img src="/images/iconopentaoxido.png" alt="Logo" />
+                <img src="/images/iconopentaoxido.png" alt="Logo">
                 </a>
             </div>
             <ul>
@@ -23,83 +23,38 @@
         </nav>
     </header>
 
-    <h2>Galería del Portafolio</h2>
-    <section class="masonry" id="galeria"></section>
+    <section class="masonry" id="galeria">
+        <h2>Galería de Imágenes</h2>
+    </section>
 
-    <!-- Modal -->
-<div
-id="modal"
-style="
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.8);
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-"
->
-<button
-    id="prev-btn"
-    style="
-        position: absolute;
-        left: 20px;
-        top: 50%;
-        transform: translateY(-50%);
-        background-color: rgba(255, 255, 255, 0.5);
-        border: none;
-        font-size: 2rem;
-        cursor: pointer;
-        border-radius: 50%;
-        width: 50px;
-        height: 50px;
-        user-select: none;
-    "
-    aria-label="Imagen anterior"
->
-    &#8249;
-</button>
-<img id= ampliada" style="max-width: 90%; max-height: 90%; border-radius: 10px;"/>
-<button
-    id="next-btn"
-    style="
-        position: absolute;
-        right: 20px;
-        top: 50%;
-        transform: translateY(-50%);
-        background-color: rgba(255, 255, 255, 0.5);
-        border: none;
-        font-size: 2rem;
-        cursor: pointer;
-        border-radius: 50%;
-        width: 50px;
-        height: 50px;
-        user-select: none;
-"
-    aria-label="Imagen siguiente"
->
-    &#8250;
-</button>
+<!-- Modal -->
+<div id="modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
+    
+    <button id="prev-btn" class="nav-btn" aria-label="Imagen anterior">
+        &#8249;
+    </button>
+
+    <img id="img-ampliada" class="modal-img" src="https://via.placeholder.com/600x400" alt="Imagen ampliada">
+
+    <button id="next-btn" class="nav-btn" aria-label="Imagen siguiente">
+        &#8250;
+    </button>
+    
 </div>
 
     <footer>
         <div class="footer-container">
-            <div class="logos">
-                <a href="https://www.facebook.com/pentaoxido/" target="_blank"
-                    ><img src="/images/redes_sociales/LogoFacebook.png" alt="Facebook"
-                /></a>
-                <a href="https://twitter.com/pentaoxido" target="_blank"
-                    ><img src="/images/redes_sociales/LogoTwitter.png" alt="Twitter"
-                /></a>
-                <a href="https://www.instagram.com/pentaoxido/" target="_blank"
-                    ><img
-                        src="/images/redes_sociales/LogoInstagram.png"
-                        alt="Instagram"
-                /></a>
-            </div>
+            <a href="https://facebook.com" target="_blank">
+                <img src="images/redes_sociales/LogoFacebook" alt="Facebook">
+            </a>
+            <a href="https://twitter.com/pentaoxido" target="_blank">
+                <img src="images/redes_sociales/LogoTwitter.png" alt="Twitter">
+            </a>
+            <a href="https://www.instagram.com/pentaoxido/" target="_blank">
+                <img src="images/redes_sociales/LogoInstagram.png" alt="Instagram">
+            </a>
+        </div>
+        <div>
             <div class="company-info">
                 <p>Dirección: Calle Real 123, 15175, A Coruña, España</p>
                 <p>Email: contactopentaoxido@empresa.com</p>
